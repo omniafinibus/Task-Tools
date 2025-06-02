@@ -1,2 +1,2 @@
 # Task-Tools
-Scripts to mainatin tasks in both .todo and .ics files
+Scripts to maintain tasks in both .todo and .ics files

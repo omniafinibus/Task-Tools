@@ -1,5 +1,5 @@
 # Task-Tools
-Scripts to mainatin tasks in both .todo and .ics files
+Scripts to maintain tasks in both .todo and .ics files
 
 daily_notes looks at a directory which contains years and months of todo files, showing a history of when things where completed
 

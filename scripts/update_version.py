@@ -1,5 +1,3 @@
-#!/usr/bin/env /home/arjan/Nextcloud/Programming/Python/project_tools/project_tools_venv/bin/python3
-
 import os
 import argparse
 

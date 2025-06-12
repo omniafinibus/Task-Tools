@@ -1,53 +1,9 @@
+import uuid 
 import datetime as dt
 from os.path import isfile
-import uuid 
-import argparse
-
-# Add flag support
-PARSER = argparse.ArgumentParser()
-
-def str2bool(arg):
-    """Convert an argument to a boolean
-
-    :param arg: Argument to convert
-    :type arg: bool or string
-    :raises argparse.ArgumentTypeError: Error when value is not correct
-    :return: Boolean value of original argument
-    :rtype: bool
-    """
-    if isinstance(arg, bool):
-        return arg
-    if arg.lower() in ('yes', 'true', 't', 'y', '1'):
-        return True
-    elif arg.lower() in ('no', 'false', 'f', 'n', '0'):
-        return False
-    else:
-        raise argparse.ArgumentTypeError('Boolean value expected.')
+from lib.arguments import args
 
 # Flags for the command
-PARSER.add_argument("targetPath", help="Defines file from which tasks are read")
-PARSER.add_argument(
-    "-n ",
-    "--nano",
-    type=str2bool,
-    nargs="?",
-    const=True,
-    default=False,
-    help="Open the notes with nano",
-)
-PARSER.add_argument(
-    "-c ",
-    "--code",
-    type=str2bool,
-    nargs="?",
-    const=True,
-    default=True,
-    help="Open the notes with VS code (default)",
-)
-
-# Read the flags
-args = PARSER.parse_args()
-
 if args.nano:
     editor = "nano"
 else:

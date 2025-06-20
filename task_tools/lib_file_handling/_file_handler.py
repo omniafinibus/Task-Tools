@@ -1,13 +1,39 @@
+# ==================================================================== #
+#  File name:      _file_handler.py             #        _.==._        #
+#  Author:         Arjan Lemmens                #     .+=##**##=+.     #
+#  Date:           20-Jun-2025                  #    *= #        =*    #
+# ============================================= #   #/  #         \#   #
+#  Description:    Methods and definitions that #  |#   #   $      #|  #
+#                  are related to file handling #  |#   #   #      #|  #
+#                  , naming and mangement       #   #\  #   #     /#   #
+#                                               #    *= #   #    =+    #
+#                                               #     *++######++*     #
+#  Rev:            1.0                          #        *-==-*        #
+# ==================================================================== #
+#  Revision history:                                                   #
+#  Date        Description                                             #
+#  20-Jun-2025 Initial release                                         #
+# ==================================================================== #
+
+# =========== #
+#   Imports   #
+# =========== #
 import datetime
 import subprocess
 from os import listdir
 from os.path import join, isfile, isdir
 import re
 
+# =============== #
+#   Definitions   #
+# =============== #
 DATE = datetime.datetime.now()
 
 
-def get_all_files(directory:str, regex:str, recursive:bool):
+# =========== #
+#   Methods   #
+# =========== #
+def get_all_files(directory: str, regex: str, recursive: bool):
     """Find all files in a directory for which the regular expression applies
 
     :param directory: Directory in which to search
@@ -20,11 +46,11 @@ def get_all_files(directory:str, regex:str, recursive:bool):
     :rtype: list[str]
     """
     lFoundFiles = []
-    
+
     # Return empty string if directory does not exist
     if not isdir(directory):
         return lFoundFiles
-    
+
     # Run through each file
     for target in listdir(directory):
         target = join(directory, target)
@@ -32,11 +58,11 @@ def get_all_files(directory:str, regex:str, recursive:bool):
             lFoundFiles.append(*get_all_files(target, regex, recursive))
         elif isfile(target) and re.findall(regex, target):
             lFoundFiles.append(target)
-            
+
     # Make sure there is no empty directory added
     if "" in lFoundFiles:
         lFoundFiles.remove("")
-    return lFoundFiles 
+    return lFoundFiles
 
 
 def open_file(editor, file):
@@ -47,10 +73,10 @@ def open_file(editor, file):
     :param file: directory to file
     :type file: str
     """
-    
+
     if not isfile(file):
         print(f"Cannot find file: {file}")
-    
+
     command = f'{editor} "{file}"'
     subprocess.run(command, shell=True)
 

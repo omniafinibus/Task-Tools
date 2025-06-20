@@ -1,12 +1,36 @@
+# ==================================================================== #
+#  File name:      _local.py                    #        _.==._        #
+#  Author:         Arjan Lemmens                #     .+=##**##=+.     #
+#  Date:           20-Jun-2025                  #    *= #        =*    #
+# ============================================= #   #/  #         \#   #
+#  Description:    This file handles the        #  |#   #   $      #|  #
+#                  routine to manage and update #  |#   #   #      #|  #
+#                  todo files, which contain    #   #\  #   #     /#   #
+#                  their history within the     #    *= #   #    =+    #
+#                  same file.                   #     *++######++*     #
+#                                               #        *-==-*        #
+#  Rev:            1.0                          # ==================== #
+# ==================================================================== #
+#  Revision history:                                                   #
+#  Date        Description                                             #
+#  20-Jun-2025 Implemented _remove_header, _get_update_content,        #
+#              and local_todos.                                        #
+# ==================================================================== #
+
+# =========== #
+#   Imports   #
+# =========== #
 from definitions import TODO, ARGS, TODAY, get_arg
 from lib_file_handling import get_all_files
 from os.path import isfile, getmtime
-from datetime import timezone, datetime
 from argparse import Namespace
 import subprocess
 import re
 
 
+# =========== #
+#   Methods   #
+# =========== #
 def _remove_header(text):
     """Remove the todo header from a text
 
@@ -45,7 +69,10 @@ def _get_update_content(args, file):
 
     # Generate time stamp of file based on last modified time
     import datetime
-    modifiedTime = datetime.datetime.fromtimestamp(getmtime(file), tz=datetime.datetime.now().astimezone().tzinfo)
+
+    modifiedTime = datetime.datetime.fromtimestamp(
+        getmtime(file), tz=datetime.datetime.now().astimezone().tzinfo
+    )
     dateString = f"{str(modifiedTime.day).zfill(2)}-{str(modifiedTime.month).zfill(2)}-{modifiedTime.year}"
     timeString = f"{str(modifiedTime.time().hour).zfill(2)}:{str(modifiedTime.time().minute).zfill(2)}:{str(modifiedTime.time().second).zfill(2)}"
     timeStamp = "{" + f"{dateString}|{timeString}" + "}"

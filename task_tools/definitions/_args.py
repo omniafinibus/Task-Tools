@@ -1,3 +1,21 @@
+# ==================================================================== #
+#  File name:      _args.py                     #        _.==._        #
+#  Author:         Arjan Lemmens                #     .+=##**##=+.     #
+#  Date:           20-Jun-2025                  #    *= #        =*    #
+# ============================================= #   #/  #         \#   #
+#  Description:    This file contains all       #  |#   #   $      #|  #
+#                  global definitions related   #  |#   #   #      #|  #
+#                  to argument usage.           #   #\  #   #     /#   #
+#  Rev:            1.0                          #    *= #   #    =+    #
+# ============================================= #     *++######++*     #
+#  Revision history:                            #        *-==-*        #
+#  Date        Description                      # ==================== #
+#  20-Jun-2025 Added flag definitions and short/long flag methods.     #
+# ==================================================================== #
+
+# =============== #
+#   Definitions   #
+# =============== #
 TARGET = "target"
 TARGET_SHORT = "tg"
 UPDATE = "update"
@@ -14,8 +32,13 @@ TYPE_DAILY = "daily"
 RECURSIVE_SHORT = "r"
 RECURSIVE = "recursive"
 
+
+# =========== #
+#   Methods   #
+# =========== #
 def short_flag(flag):
     return f"-{flag}"
+
 
 def long_flag(flag):
     return f"--{flag}"

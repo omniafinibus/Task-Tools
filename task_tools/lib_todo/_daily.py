@@ -1,3 +1,25 @@
+# ==================================================================== #
+#  File name:      _daily.py                    #        _.==._        #
+#  Author:         Arjan Lemmens                #     .+=##**##=+.     #
+#  Date:           20-Jun-2025                  #    *= #        =*    #
+# ============================================= #   #/  #         \#   #
+#  Description:    This file handles the        #  |#   #   $      #|  #
+#                  routine to manage and update #  |#   #   #      #|  #
+#                  todo files, which contain    #   #\  #   #     /#   #
+#                  their history a folder       #    *= #   #    =+    #
+#                  structure in the target      #     *++######++*     #
+#                  directory.                   #        *-==-*        #
+#  Rev:            1.0                          # ==================== #
+# ==================================================================== #
+#  Revision history:                                                   #
+#  Date        Description                                             #
+#  20-Jun-2025 Rewrote original daily_task script into _remove_header, #
+#              _parse_text, _contains_tasks, and daily_todos methods.  #
+# ==================================================================== #
+
+# =========== #
+#   Imports   #
+# =========== #
 from lib_file_handling import get_file_name, get_folder_name, get_last_file, open_file
 from os.path import join, isdir, isfile
 from definitions import TODO, ARGS, TODAY, get_arg
@@ -6,6 +28,10 @@ import subprocess
 import os
 import re
 
+
+# =========== #
+#   Methods   #
+# =========== #
 def _remove_header(text):
     """Remove the todo header from a text
 
@@ -16,11 +42,12 @@ def _remove_header(text):
     """
     # Remove the first line with the date/time
     text = re.sub(TODO.RE_DAILY_HEADER, "", text)
-    
+
     # Remove description
     text = text.replace(TODO.DESCRIPTION, "")
 
     return text
+
 
 def _parse_text(text):
     """Split the contents of text into the complete and in progress tasks and create the content for the new to do file containing all unfinished tasks
@@ -30,16 +57,16 @@ def _parse_text(text):
     :return: oldText, undoneTasks
     :rtype: str, str
     """
-    
+
     # Place holder for the todos which will be placed in the new to do file
     undoneTasks = ""
-    
+
     # Keep the date and time saved in the updated todo file
     oldText = text.splitlines(True)[0] + "\n"
-    
+
     # Clear header before parsing
     text = _remove_header(text)
-    
+
     # Find find all to do's, work in progress and infos
     for line in text.splitlines(True):
         if re.findall(TODO.RE_MOVE, line):
@@ -52,8 +79,9 @@ def _parse_text(text):
         elif re.findall(TODO.RE_KEEP, line):
             # Keep the "keep" task types in the original file
             oldText += line
-    
+
     return oldText, undoneTasks
+
 
 def _contains_tasks(text):
     """Check if a text contains tasks of any kind
@@ -65,18 +93,21 @@ def _contains_tasks(text):
     """
     # Don't check the header
     text = _remove_header(text)
-    
+
     # Look for any copy, keep or move tasks
-    if any([
-        re.findall(TODO.RE_COPY, text),
-        re.findall(TODO.RE_KEEP, text),
-        re.findall(TODO.RE_MOVE, text),
-    ]):
+    if any(
+        [
+            re.findall(TODO.RE_COPY, text),
+            re.findall(TODO.RE_KEEP, text),
+            re.findall(TODO.RE_MOVE, text),
+        ]
+    ):
         return True
-    
+
     return False
 
-def daily_todos(args:Namespace):
+
+def daily_todos(args: Namespace):
     """daily_todos Create a new to do file in a year/month/. folder
 
     :param args: arguments passed to this program
@@ -86,12 +117,12 @@ def daily_todos(args:Namespace):
     sourceDirectory = get_arg(args, ARGS.TARGET)
     editor = get_arg(args, ARGS.EDITOR)
     undoneTasks = ""
-    
+
     # Check if the source directory exists
     if not isdir(sourceDirectory):
         print(f"Directory not found: {sourceDirectory}")
         quit()
-    
+
     # directory and file of new day
     monthDirectory = join(sourceDirectory, get_folder_name(TODAY.month, TODAY.year))
     newFile = join(monthDirectory, get_file_name(TODAY.day, TODAY.month, TODAY.year))
@@ -122,14 +153,14 @@ def daily_todos(args:Namespace):
         if _contains_tasks(oldText):
             with open(lastFile, "w") as p:
                 p.write(oldText)
-        else: # Otherwise remove the file
+        else:  # Otherwise remove the file
             print(f"Removing file {lastFile}")
             os.remove(lastFile)
 
     # Create a new file
     with open(newFile, "w+") as notes:
         notes.write(f"{TODO.DAILY_HEADER}{TODO.DESCRIPTION}{undoneTasks}")
-        
+
     open_file(editor, newFile)
 
     print("Done!")

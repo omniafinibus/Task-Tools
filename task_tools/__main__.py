@@ -1,11 +1,40 @@
+# ==================================================================== #
+#  File name:      __main__.py                  #        _.==._        #
+#  Author:         Arjan Lemmens                #     .+=##**##=+.     #
+#  Date:           20-Jun-2025                  #    *= #        =*    #
+# ============================================= #   #/  #         \#   #
+#  Description:    This programme provides a    #  |#   #   $      #|  #
+#                  command tool which allows    #  |#   #   #      #|  #
+#                  for management of todo files #   #\  #   #     /#   #
+#                  and conversions of todo, ics #    *= #   #    =+    #
+#                  and csv files to each other  #     *++######++*     #
+#                  making it easier to plan out #        *-==-*        #
+#                  and update project plans     # ==================== #
+#  Rev:            2.0                                                 #
+# ==================================================================== #
+#  Revision history:                                                   #
+#  Date        Description                                             #
+#  20-Jun-2025 Added daily and local todo file management.             #
+# ==================================================================== #
+
+# =========== #
+#   Imports   #
+# =========== #
 from definitions import ARGS
 from lib_todo import update
 import argparse
 
+
+# ================ #
+#   Parser Setup   #
+# ================ #
 mainParser = argparse.ArgumentParser()
-# To Do handling
 subParser = mainParser.add_subparsers(dest="command", help="Update a todo file")
 subParser.required = True
+
+# ================ #
+#   To do parser   #
+# ================ #
 todoParser = subParser.add_parser(ARGS.UPDATE, add_help=False)
 todoParser.set_defaults(func=update)
 todoParser.add_argument(
@@ -42,6 +71,8 @@ todoParser.add_argument(
     help="Look for all .todo files in recursively, only works for local todo runs",
 )
 
-
+# ================== #
+#   Execution code   #
+# ================== #
 args = mainParser.parse_args()
 args.func(args)

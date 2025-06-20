@@ -1,7 +1,7 @@
 import uuid 
 import datetime as dt
 from os.path import isfile
-from lib.arguments import args
+from lib_arguments.arguments import args
 
 # Flags for the command
 if args.nano:

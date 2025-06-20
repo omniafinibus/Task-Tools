@@ -1,9 +1,9 @@
 import os
 import subprocess
 from os.path import join, isdir, isfile
-from lib.file_handler import get_folder_name, get_file_name, get_last_file, DATE
-from lib.arguments import args
+from lib_file_handling._file_handler import get_folder_name, get_file_name, get_last_file, DATE
 from lib.todo_parser import parse_todo, create_new_todo
+from lib_arguments import args
 
 if args.nano:
     editor = "nano"

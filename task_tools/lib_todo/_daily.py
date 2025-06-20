@@ -35,7 +35,7 @@ def _parse_text(text):
     undoneTasks = ""
     
     # Keep the date and time saved in the updated todo file
-    oldText = text.splitlines(True)[0]
+    oldText = text.splitlines(True)[0] + "\n"
     
     # Clear header before parsing
     text = _remove_header(text)
@@ -77,6 +77,11 @@ def _contains_tasks(text):
     return False
 
 def daily_todos(args:Namespace):
+    """daily_todos Create a new to do file in a year/month/. folder
+
+    :param args: arguments passed to this program
+    :type args: Namespace
+    """
     # Get the relevant arguments
     sourceDirectory = get_arg(args, ARGS.TARGET)
     editor = get_arg(args, ARGS.EDITOR)

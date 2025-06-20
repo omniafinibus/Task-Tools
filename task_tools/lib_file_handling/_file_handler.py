@@ -27,13 +27,15 @@ def get_all_files(directory:str, regex:str, recursive:bool):
     
     # Run through each file
     for target in listdir(directory):
-        if isdir(target):
+        target = join(directory, target)
+        if isdir(target) and recursive:
             lFoundFiles.append(*get_all_files(target, regex, recursive))
         elif isfile(target) and re.findall(regex, target):
             lFoundFiles.append(target)
             
     # Make sure there is no empty directory added
-    lFoundFiles.remove("")
+    if "" in lFoundFiles:
+        lFoundFiles.remove("")
     return lFoundFiles 
 
 

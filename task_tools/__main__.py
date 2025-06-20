@@ -32,8 +32,16 @@ todoParser.add_argument(
 todoParser.add_argument(
     ARGS.long_flag(ARGS.DELETE_OLD),
     ARGS.short_flag(ARGS.DELETE_OLD_SHORT),
+    action='store_true',
     help="Delete old tasks, in daily  mode this deletes the latest file only containing completed tasks.",
 )
+todoParser.add_argument(
+    ARGS.long_flag(ARGS.RECURSIVE),
+    ARGS.short_flag(ARGS.RECURSIVE_SHORT),
+    action='store_true',
+    help="Look for all .todo files in recursively, only works for local todo runs",
+)
+
 
 args = mainParser.parse_args()
 args.func(args)

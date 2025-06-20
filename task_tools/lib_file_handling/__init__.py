@@ -1,1 +1,1 @@
-from lib_file_handling._file_handler import get_file_name, get_folder_name, get_last_file, get_previous_date, open_file
+from lib_file_handling._file_handler import get_file_name, get_folder_name, get_last_file, get_previous_date, open_file, get_all_files

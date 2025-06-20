@@ -1,8 +1,40 @@
 import datetime
 import subprocess
-from os.path import join, isfile
+from os import listdir
+from os.path import join, isfile, isdir
+import re
 
 DATE = datetime.datetime.now()
+
+
+def get_all_files(directory:str, regex:str, recursive:bool):
+    """Find all files in a directory for which the regular expression applies
+
+    :param directory: Directory in which to search
+    :type directory: str
+    :param regex: Regular expression which needs to apply to the files found
+    :type regex: str
+    :param recursive: Seek in all directories located in the parent directory as well
+    :type recursive: bool
+    :return: List of all files found
+    :rtype: list[str]
+    """
+    lFoundFiles = []
+    
+    # Return empty string if directory does not exist
+    if not isdir(directory):
+        return lFoundFiles
+    
+    # Run through each file
+    for target in listdir(directory):
+        if isdir(target):
+            lFoundFiles.append(*get_all_files(target, regex, recursive))
+        elif isfile(target) and re.findall(regex, target):
+            lFoundFiles.append(target)
+            
+    # Make sure there is no empty directory added
+    lFoundFiles.remove("")
+    return lFoundFiles 
 
 
 def open_file(editor, file):

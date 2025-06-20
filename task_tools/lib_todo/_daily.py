@@ -15,7 +15,7 @@ def _remove_header(text):
     :rtype: str
     """
     # Remove the first line with the date/time
-    text = re.sub(TODO.RE_HEADER, "", text)
+    text = re.sub(TODO.RE_DAILY_HEADER, "", text)
     
     # Remove description
     text = text.replace(TODO.DESCRIPTION, "")
@@ -128,7 +128,7 @@ def daily_todos(args:Namespace):
 
     # Create a new file
     with open(newFile, "w+") as notes:
-        notes.write(f"{TODO.todo_header()}{TODO.DESCRIPTION}{undoneTasks}")
+        notes.write(f"{TODO.DAILY_HEADER}{TODO.DESCRIPTION}{undoneTasks}")
         
     open_file(editor, newFile)
 

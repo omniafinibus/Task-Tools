@@ -1,6 +1,6 @@
 from lib_file_handling import get_file_name, get_folder_name, get_last_file, open_file
 from os.path import join, isdir, isfile
-from definitions import TODO, ARGS, TODAY
+from definitions import TODO, ARGS, TODAY, get_arg
 from argparse import Namespace
 import subprocess
 import os
@@ -78,8 +78,8 @@ def _contains_tasks(text):
 
 def daily_todos(args:Namespace):
     # Get the relevant arguments
-    sourceDirectory = args.__dict__[ARGS.TARGET]
-    editor = args.__dict__[ARGS.EDITOR]
+    sourceDirectory = get_arg(args, ARGS.TARGET)
+    editor = get_arg(args, ARGS.EDITOR)
     undoneTasks = ""
     
     # Check if the source directory exists

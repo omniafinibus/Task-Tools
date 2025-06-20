@@ -1,4 +1,5 @@
 TARGET = "target"
+TARGET_SHORT = "tg"
 UPDATE = "update"
 EDITOR_SHORT = "e"
 EDITOR = "editor"

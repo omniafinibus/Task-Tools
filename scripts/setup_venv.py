@@ -1,5 +1,5 @@
 import os
-from ._directory import BASE_DIRECTORY
+from _directory import BASE_DIRECTORY
 
 VENV_NAME = ".venv"
 VENV_PY = os.path.join(BASE_DIRECTORY, VENV_NAME, "Scripts", "python.exe")

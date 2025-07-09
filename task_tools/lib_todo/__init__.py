@@ -23,6 +23,7 @@
 from lib_todo._daily import daily_todos
 from lib_todo._local import local_todos
 from definitions import ARGS, get_arg
+import sys
 
 
 # =========== #
@@ -42,4 +43,4 @@ def update(args):
         daily_todos(args)
     else:
         print(f"unknown type {type}")
-        quit()
+        sys.exit()

@@ -25,6 +25,7 @@ from os.path import join, isdir, isfile
 from definitions import TODO, ARGS, TODAY, get_arg
 from argparse import Namespace
 import subprocess
+import sys
 import os
 import re
 
@@ -121,7 +122,7 @@ def daily_todos(args: Namespace):
     # Check if the source directory exists
     if not isdir(sourceDirectory):
         print(f"Directory not found: {sourceDirectory}")
-        quit()
+        sys.exit()
 
     # directory and file of new day
     monthDirectory = join(sourceDirectory, get_folder_name(TODAY.month, TODAY.year))
@@ -136,7 +137,7 @@ def daily_todos(args: Namespace):
         command = f'{editor} "{newFile}"'
         subprocess.run(command, shell=True)
         print("Done!")
-        quit()
+        sys.exit()
 
     # Find the previous notes
     lastFile = get_last_file(sourceDirectory)

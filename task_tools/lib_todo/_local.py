@@ -25,8 +25,8 @@ from lib_file_handling import get_all_files
 from os.path import isfile, getmtime
 from argparse import Namespace
 import subprocess
+import sys
 import re
-
 
 # =========== #
 #   Methods   #
@@ -127,7 +127,7 @@ def local_todos(args: Namespace):
                 command = f'{editor} "{sourceDirectory}"'
                 subprocess.run(command, shell=True)
                 print("Done!")
-                quit()
+                sys.exit()
         else:
             print(f"Not a todo file: {sourceDirectory}")
         return
@@ -146,4 +146,4 @@ def local_todos(args: Namespace):
             subprocess.run(command, shell=True)
 
     print("Done!")
-    quit()
+    sys.exit()

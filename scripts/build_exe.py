@@ -27,7 +27,10 @@ LOG_DIR = os.path.join(BASE_DIRECTORY, "bin", "logfile.txt")
 check_file(LOG_DIR)
 
 with open(LOG_DIR, 'w+') as logFile:
-    results = subprocess.run(f"{DIR_PYINSTALLER} --name \"{NAME}\" {MAIN_FILE} {OPTIONS} {OUTPUT_DIR}", stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True)
+    command = f"\"{DIR_PYINSTALLER}\" {MAIN_FILE} --name \"{NAME}\" {OPTIONS} {OUTPUT_DIR}"
+    results = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True)
     logFile.write(results.stdout)
     
 print("Done!")
+
+# pyinstaller task_tools/__main__.py --workpath build/ --specpath bin --name Task-Tools

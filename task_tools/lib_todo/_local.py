@@ -80,6 +80,7 @@ def _get_update_content(args, file):
     # Was the previous finished line a finished one
     lastLineFinished = False
     newText = TODO.LOCAL_HEADER + "\n"
+    newText += TODO.DESCRIPTION
 
     for line in text.splitlines(True):
         # Unfinished tasks
